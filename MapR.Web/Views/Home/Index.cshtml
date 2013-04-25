@@ -1,0 +1,51 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>MapR</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
+    <link rel="stylesheet" href="//serverapi.arcgisonline.com/jsapi/arcgis/3.3/js/dojo/dijit/themes/claro/claro.css" />
+    <link rel="stylesheet" href="//serverapi.arcgisonline.com/jsapi/arcgis/3.3/js/esri/css/esri.css" />
+    <link rel="stylesheet" href="~/Content/toastr.min.css" />
+    <link rel="stylesheet" href="~/Content/App.min.css" />
+</head>
+<body class="claro">
+    <div id="mainWindow"
+        data-dojo-type="dijit.layout.BorderContainer"
+        data-dojo-props="design:'headline', gutters:false"
+        style="width: 100%; height: 100%;">
+        <div id="header"
+            data-dojo-type="dijit.layout.ContentPane"
+            data-dojo-props="region:'top'">
+            <div style="float: left;">
+                <a href="http://davetimmins.wordpress.com" target="_blank">
+                    <img border="0" alt="Blog on Wordpress" src="@Url.Content("~/Content/wordpress.png")" /></a>
+                <a href="https://twitter.com/davetimmins" target="_blank">
+                    <img border="0" alt="davetimmins on twitter" src="@Url.Content("~/Content/twitter.png")" /></a>
+                <a href="javascript:showToast();">
+                    <img border="0" alt="about this page" src="@Url.Content("~/Content/info.png")" /></a>
+            </div>
+            <div style="float: right;">
+                <span id="connectionCount"></span>
+                <br />
+                <span id="hoverText"></span>
+            </div>
+        </div>
+        <div id="map"
+            data-dojo-type="dijit.layout.ContentPane"
+            data-dojo-props="region:'center'">
+        </div>
+    </div>
+    <script defer src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" type="text/javascript"></script>
+    <script defer src="Scripts/toastr.min.js" type="text/javascript"></script>
+    <script defer src="Scripts/jquery.signalR-1.0.1.min.js" type="text/javascript"></script>
+    <script defer src="~/signalr/hubs"></script>
+    <script>var dojoConfig = { parseOnLoad: true, async: true };</script>
+    <script defer src="//serverapi.arcgisonline.com/jsapi/arcgis/3.3compact/"></script>
+    <script defer src="~/Scripts/app.js"></script>
+</body>
+</html>
