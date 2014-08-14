@@ -1,0 +1,83 @@
+﻿html, body {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 1em;
+}
+
+html, button, input, select, textarea {
+    font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 1em;
+}
+
+.header {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 29;
+    width: 400px;
+    background-color: rgba(255,255,255,0.5);
+    border: 1px solid rgba(80,80,80,0.5);
+    text-transform: none;
+    border-radius: 4px;
+    padding-left: 12px;
+    padding-right: 12px;
+}
+
+    .header h1 {
+        float: left;
+        margin: 0;
+        padding-left: 40px;
+        padding-top: 12px;
+        padding-bottom: 44px;
+        vertical-align: baseline;
+    }
+
+    .header .info {
+        vertical-align: middle;
+        text-align: right;
+        font-weight: bold;
+        font-size: 0.9em;
+        color: #606060;
+    }
+
+    .header p {
+        font-weight: bold;
+        font-size: 0.9em;
+        color: #606060;
+    }
+
+
+
+a {
+    color: #3399f3;
+    text-decoration: none;
+}
+
+    a:hover, a:focus {
+        color: #3399f3;
+        text-decoration: underline;
+    }
+
+    a:focus {
+        outline: thin dotted;
+        outline: 5px auto -webkit-focus-ring-color;
+        outline-offset: -2px;
+    }
+
+.map {
+    position: absolute;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    height: 100%;
+}
+
+.esriSimpleSlider {
+    top: 30px;
+}
