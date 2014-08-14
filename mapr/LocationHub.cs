@@ -11,9 +11,9 @@ namespace MapR
         public void Add(object json)
         {
             foreach (var graphic in _graphics)
-                Clients.Caller.addGraphic(graphic.Key, graphic.Value);
+                Clients.Caller.addGraphic(graphic.Value);
 
-            Clients.Others.addGraphic(Context.ConnectionId, json);
+            Clients.Others.addGraphic(json);
 
             _graphics.TryAdd(Context.ConnectionId, json);
         }

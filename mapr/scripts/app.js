@@ -12,12 +12,12 @@
         }
     });
 
-    require(['app/mapr', 'esri/graphic', 'dojo/on', 'dojo/_base/lang'], function (mapr, Graphic, on, lang) {
+    require(['app/mapr', 'esri/graphic', 'esri/geometry/Point', 'dojo/on', 'dojo/_base/lang'], function (mapr, Graphic, Point, on) {
 
         var connection = $.hubConnection();
         var locationConnection = connection.createHubProxy('locationHub');
 
-        locationConnection.on('addGraphic', function (id, json) {
+        locationConnection.on('addGraphic', function (json) {
             appR.addGraphic(new Graphic(json));
         });
 
@@ -29,12 +29,17 @@
             appR.removeGraphic(id);
         });
 
-        connection.start()
+        connection.start({ transport: ['serverSentEvents', 'webSockets', 'longPolling'] })
             .done(function () {
                 //Check if browser supports W3C Geolocation API
-                if (navigator.geolocation) {
-                    appR = new mapr({ locationConnection: locationConnection });
-                    navigator.geolocation.getCurrentPosition(lang.hitch(appR, appR.showCurrentPosition));
+                if ("geolocation" in navigator) {
+                    navigator.geolocation.getCurrentPosition(function (position){
+                        appR = new mapr(
+                            {
+                                myGeometry: new Point(position.coords.longitude, position.coords.latitude),
+                                locationConnection: locationConnection
+                            });
+                    });
                 }
             })
             .fail(function () {

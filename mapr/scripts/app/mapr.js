@@ -66,22 +66,21 @@ define([
 
             _updateHeaderText: function () {
                 dom.byId("connectionCount").innerHTML = this.map.graphics.graphics.length;
-                this._updateExtent();
+                this._updateExtent(this.map);
             },
 
-            _updateExtent: function () {
+            _updateExtent: function (map) {
+                if (!map.graphics || !map.graphics.graphics || map.graphics.graphics.length === 0) return;
                 var extent = null;
-                array.forEach(this.map.graphics.graphics, function (graphic) {
-                    if (extent == null)
-                        extent = new esri.geometry.Extent(graphic.geometry.x - 1, graphic.geometry.y - 1, graphic.geometry.x + 1, graphic.geometry.y + 1, new esri.SpatialReference({ wkid: 102100 }));
-                    else
-                        extent = extent.union(new esri.geometry.Extent(graphic.geometry.x - 1, graphic.geometry.y - 1, graphic.geometry.x + 1, graphic.geometry.y + 1, new esri.SpatialReference({ wkid: 102100 })));
+                array.forEach(map.graphics.graphics, function (graphic) {
+                    if (graphic.geometry) {
+                        if (extent == null)
+                            extent = new Extent(graphic.geometry.x - 1, graphic.geometry.y - 1, graphic.geometry.x + 1, graphic.geometry.y + 1, map.spatialReference);
+                        else
+                            extent = extent.union(new Extent(graphic.geometry.x - 1, graphic.geometry.y - 1, graphic.geometry.x + 1, graphic.geometry.y + 1, map.spatialReference));
+                    }
                 });
-                if (extent != null) this.map.setExtent(extent, true);
-            },
-
-            showCurrentPosition: function (position) {
-                this.myGeometry = new Point(position.coords.longitude, position.coords.latitude);
+                if (extent != null) map.setExtent(extent, true);
             },
 
             _watchPositionSuccess: function (position) {
@@ -89,7 +88,7 @@ define([
 
                 var me = lang.hitch(this, this.getMyGraphic(null));
                 me.geometry = webMercatorUtils.geographicToWebMercator(this.myGeometry);
-                this._updateExtent();
+                this._updateExtent(this.map);
                 this.locator.locationToAddress(me.geometry, 1000);
             },
 
